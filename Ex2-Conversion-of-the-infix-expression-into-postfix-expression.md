@@ -4,104 +4,101 @@
 To write a C program to convert the infix expression into postfix form using stack by following the operator precedence and associative rule.
 
 ## Algorithm
-1. Start the program.
-   
-2. Include the required libraries.
-
-
-3.Define functions for push and pop operations to handle the stack and define a function to return the priority of the operators.
-
-
-4. Construct the function to convert an infix expression into postfix following the logic.
-
-
-5. End the program.
+1. 	Start the program.
+2.	Initialize a stack and set the top index to -1.
+3.	Define the push() and pop() functions to add and remove elements from the stack.
+4.	Define the priority() function to assign priorities to operators.
+5.	Traverse the expression in the IntoPost() function, handling operands, parentheses, and operators.
+6.	After processing the expression, pop and print any remaining operators from the stack.
+7.	End.
 
 ## Program:
 ```
 /*
 Program to convert the infix expression into postfix expression
 Developed by: KAVIYA D
-RegisterNumber: 212223040089
+RegisterNumber: 212223040089 
 */
+#include<stdio.h> #include<ctype.h>
 
-#include<stdio.h>
-#include<ctype.h>
-
-char stack[100];
-int top = -1;
-
+char stack[100]; int top = -1;
 void push(char x)
 {
-   top++;
-   stack[top]=x;
+stack[++top]=x;
+
 }
 
 char pop()
 {
-    if(top==-1)
-    return -1;
-    else
-    return stack[top--];
+if(top==-1) return 0;
+else
+return stack[top--];
 }
 int priority(char x)
 {
-    if(x=='(')
-    return 0;
-    if(x=='&'||x=='|')
-    return 1;
-    if(x=='+'||x=='-')
-    return 2;
-    if(x=='*'||x=='/'||x=='%')
-    return 3;
-    if(x=='^')
-    return 4;
-    return 0;
+if(x=='(')
+ 
+{
+return 0;
+}
+if(x=='&'||x=='|')
+{
+return 1;
+}
+if(x=='+'||x=='-')
+{
+return 2;
+}
+if(x=='*'||x=='/'||x=='%')
+{
+return 3;
+}
+if(x=='^')
+{
+return 4;
+}
+return 0;
 }
 char IntoPost(char *exp)
 {
-    char *e,x;
-    e=exp;
-    while(*e!='\0')
-    {
-        if(isalnum(*e))
-        printf("%c ",*e);
-        else if(*e=='(')
-        push(*e);
-        else if(*e==')')
-        {
-            while((x=pop())!='(')
-            printf("%c ",x);
-        }
-        else
-        {
-            while(priority(*e)<=priority(stack[top]))
-            printf("%c ",pop());
-            push(*e);
-        }
-        e++;
-    }
-    
-    while(top != -1)
-    {
-       printf("%c ",pop());
-    }
-    return 0;
+char *e,x; e=exp; while(*e!='\0')
+{
+if(isalnum(*e))
+{
+printf("%c ",*e);
 }
-
-
+else if(*e=='(')
+{
+push(*e);
+}
+else if(*e==')')
+{
+while((x=pop())!='(') printf("%c ",x);
+}
+else
+{
+while(priority(stack[top])>=priority(*e)) printf("%c ",pop());
+push(*e);
+}
+e++;
+}
+ 
+while(top != -1)
+{
+printf("%c ",pop());
+}return 0;
+}
 int main()
 {
-    char exp[100]="4*(2+5)*9";
-    IntoPost(exp);
-    return 1;
+char exp[100]="3%2+4*(A&B)"; IntoPost(exp);
+return 1;
 }
 
 ```
 
 ## Output:
 
-![437090539-35572033-dc59-462a-bdb6-9f4eb1513e71](https://github.com/user-attachments/assets/7aadf723-3751-43ce-bcba-e5d4655274e7)
+![image](https://github.com/user-attachments/assets/8c19e271-31d8-438e-8221-1d2cd57e8d2e)
 
 
 ## Result:
